@@ -31,10 +31,10 @@ To generate an Admin SDK, add the `adminNodeSdk` block to your `connector.yaml`:
 ```yaml
 connectorId: my-connector
 generate:
-  adminNodeSdk:
-    outputDir: "./admin-sdk"
-    package: "@dataconnect/admin-generated"
-    packageJsonDir: "." # Directory containing package.json
+    adminNodeSdk:
+        outputDir: "./admin-sdk"
+        package: "@dataconnect/admin-generated"
+        packageJsonDir: "." # Directory containing package.json
 ```
 
 ### Generation
@@ -59,11 +59,7 @@ import { connectorConfig, getSongs } from "@dataconnect/admin-generated";
 const adminApp = initializeApp();
 const adminDc = getDataConnect(connectorConfig);
 
-const songs = await getSongs(
-  adminDc,
-  { limit: 4 },
-  { impersonate: { unauthenticated: true } }
-);
+const songs = await getSongs(adminDc, { limit: 4 }, { impersonate: { unauthenticated: true } });
 ```
 
 #### 2. Impersonating a Specific User (Cloud Functions)
@@ -81,11 +77,7 @@ export const callableExample = onCall(async (req) => {
         throw new HttpsError("unauthenticated", "Unauthorized");
     }
 
-    const favoriteSongs = await getMyFavoriteSongs(
-        adminDc,
-        undefined,
-        { impersonate: { authClaims } }
-    );
+    const favoriteSongs = await getMyFavoriteSongs(adminDc, undefined, { impersonate: { authClaims } });
 
     return favoriteSongs;
 });
@@ -116,11 +108,7 @@ export const httpExample = onRequest(async (req, res) => {
         return;
     }
 
-    const favoriteSongs = await getMyFavoriteSongs(
-        adminDc,
-        undefined,
-        { impersonate: { authClaims } }
-    );
+    const favoriteSongs = await getMyFavoriteSongs(adminDc, undefined, { impersonate: { authClaims } });
 
     res.send(favoriteSongs);
 });
@@ -135,7 +123,7 @@ true administrative tasks.
 import { upsertSong } from "@dataconnect/admin-generated";
 
 await upsertSong(adminDc, {
-  title: "New Song",
-  genre: "Rock"
+    title: "New Song",
+    genre: "Rock",
 });
 ```

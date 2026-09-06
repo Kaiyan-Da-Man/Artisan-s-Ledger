@@ -5,7 +5,7 @@ pattern. It allows you to upgrade a function's infrastructure to V2 (and take
 advantage of GCF 2nd Gen runtimes) without rewriting any of your internal
 business logic.
 
-______________________________________________________________________
+---
 
 ## How it Works
 
@@ -22,8 +22,8 @@ signature.
 
 ```typescript
 export const processOrder = functions.pubsub.topic("orders").onPublish((message, context) => {
-  const orderId = message.json.id;
-  console.log(`Processing order ${orderId} at ${context.timestamp}`);
+    const orderId = message.json.id;
+    console.log(`Processing order ${orderId} at ${context.timestamp}`);
 });
 ```
 
@@ -34,8 +34,8 @@ we destructure `{ message, context }` directly:
 
 ```typescript
 export const processOrder = onMessagePublished("orders", ({ message, context }) => {
-  const orderId = message.json.id; // Legacy logic remains untouched!
-  console.log(`Processing order ${orderId} at ${context.timestamp}`);
+    const orderId = message.json.id; // Legacy logic remains untouched!
+    console.log(`Processing order ${orderId} at ${context.timestamp}`);
 });
 ```
 
@@ -48,7 +48,7 @@ the SDK transparently maps the V2 event properties back into V1-compatible
 objects on the fly! This feature is available in modern V2 environments
 supported by the SDK.
 
-______________________________________________________________________
+---
 
 ## Provider Mapping Examples
 
@@ -57,43 +57,43 @@ Here are the exact destructuring patterns for every supported V2 provider:
 ### 1. Cloud Firestore
 
 - **Created / Deleted** triggers:
-  ```typescript
-  // V2: onDocumentCreated, onDocumentDeleted
-  export const processDoc = onDocumentCreated("users/{id}", ({ snapshot, context }) => { ... });
-  ```
+    ```typescript
+    // V2: onDocumentCreated, onDocumentDeleted
+    export const processDoc = onDocumentCreated("users/{id}", ({ snapshot, context }) => { ... });
+    ```
 - **Updated / Written** triggers:
-  ```typescript
-  // V2: onDocumentUpdated, onDocumentWritten
-  export const processDoc = onDocumentUpdated("users/{id}", ({ change, context }) => { ... });
-  ```
+    ```typescript
+    // V2: onDocumentUpdated, onDocumentWritten
+    export const processDoc = onDocumentUpdated("users/{id}", ({ change, context }) => { ... });
+    ```
 
 ### 2. Cloud Storage
 
 - **All** triggers (`onObjectFinalized`, `onObjectDeleted`, `onObjectArchived`,
   `onObjectMetadataUpdated`):
-  ```typescript
-  export const processFile = onObjectFinalized(({ object, context }) => { ... });
-  ```
+    ```typescript
+    export const processFile = onObjectFinalized(({ object, context }) => { ... });
+    ```
 
 ### 3. Realtime Database
 
 - **Created / Deleted** triggers:
-  ```typescript
-  export const processData = onValueCreated("/users/{id}", ({ snapshot, context }) => { ... });
-  ```
+    ```typescript
+    export const processData = onValueCreated("/users/{id}", ({ snapshot, context }) => { ... });
+    ```
 - **Updated / Written** triggers:
-  ```typescript
-  export const processData = onValueWritten("/users/{id}", ({ change, context }) => { ... });
-  ```
+    ```typescript
+    export const processData = onValueWritten("/users/{id}", ({ change, context }) => { ... });
+    ```
 
 ### 4. Remote Config
 
 - **Updated** triggers:
-  ```typescript
-  export const processConfig = onConfigUpdated(({ version, context }) => { ... });
-  ```
+    ```typescript
+    export const processConfig = onConfigUpdated(({ version, context }) => { ... });
+    ```
 
-______________________________________________________________________
+---
 
 ## Best Practices for AI Agents
 
@@ -110,10 +110,10 @@ ______________________________________________________________________
 1. **HTTPS Callables (Flattened Context)**: Unlike event triggers, Callables do
    **not** use `V1Compat` or a `context` object. Instead, all context properties
    are flattened onto the request object.
-   - **V1 Priority**: `(data, context) => { ... }`
-   - **V2 Equivalent**: `({ data, auth, app }) => { ... }`
+    - **V1 Priority**: `(data, context) => { ... }`
+    - **V2 Equivalent**: `({ data, auth, app }) => { ... }`
 
-______________________________________________________________________
+---
 
 ## Related Migrations
 

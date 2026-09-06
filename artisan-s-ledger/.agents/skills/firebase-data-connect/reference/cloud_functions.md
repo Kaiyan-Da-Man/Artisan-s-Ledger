@@ -3,7 +3,7 @@
 Use this reference to handle database events in SQL Connect by triggering Cloud
 Functions in response to mutation executions.
 
-______________________________________________________________________
+---
 
 ## Core Trigger Configuration
 
@@ -35,19 +35,19 @@ import { onMutationExecuted } from "firebase-functions/dataconnect";
 import { logger } from "firebase-functions";
 
 export const logMutation = onMutationExecuted(
-  {
-    region: "europe-west1" // Must match the SQL Connect service location
-  },
-  (event) => {
-    logger.info("A mutation was executed!", {
-      eventId: event.id,
-      type: event.type
-    });
-  }
+    {
+        region: "europe-west1", // Must match the SQL Connect service location
+    },
+    (event) => {
+        logger.info("A mutation was executed!", {
+            eventId: event.id,
+            type: event.type,
+        });
+    },
 );
 ```
 
-______________________________________________________________________
+---
 
 ## Event Filtering
 
@@ -69,30 +69,30 @@ import { logger } from "firebase-functions";
 // Triggers for "CreateUser" mutation in "myAppService" service.
 // 'connector' is omitted (optional), meaning it matches "CreateUser" in any connector.
 export const onUserCreate = onMutationExecuted(
-  {
-    service: "myAppService",
-    operation: "CreateUser",
-    // region: "us-central1" // Optional: defaults to us-central1, change if database is elsewhere
-  },
-  (event) => {
-    logger.info("A new user was created!");
-  }
+    {
+        service: "myAppService",
+        operation: "CreateUser",
+        // region: "us-central1" // Optional: defaults to us-central1, change if database is elsewhere
+    },
+    (event) => {
+        logger.info("A new user was created!");
+    },
 );
 
 // Advanced: Trigger using wildcards or capture variables
 export const onMutationCaptures = onMutationExecuted(
-  {
-    service: "myAppService",
-    operation: "{operation}", // Captures matching operation name dynamically
-  },
-  (event) => {
-    const triggeredOp = event.params.operation;
-    logger.info(`Captured operation execution: ${triggeredOp}`);
-  }
+    {
+        service: "myAppService",
+        operation: "{operation}", // Captures matching operation name dynamically
+    },
+    (event) => {
+        const triggeredOp = event.params.operation;
+        logger.info(`Captured operation execution: ${triggeredOp}`);
+    },
 );
 ```
 
-______________________________________________________________________
+---
 
 ## Accessing User Authentication Context
 
@@ -112,19 +112,16 @@ Extract security credentials about the caller who executed the mutation using
 ### Auth Extraction Example
 
 ```typescript
-export const processSensitiveMutation = onMutationExecuted(
-  { operation: "UpdateFinancials" },
-  (event) => {
+export const processSensitiveMutation = onMutationExecuted({ operation: "UpdateFinancials" }, (event) => {
     if (event.authType === "admin") {
-      console.log("Elevated admin mutation execution.");
+        console.log("Elevated admin mutation execution.");
     } else {
-      console.log(`Mutation initiated by user: ${event.authId}`);
+        console.log(`Mutation initiated by user: ${event.authId}`);
     }
-  }
-);
+});
 ```
 
-______________________________________________________________________
+---
 
 ## Parsing Event Data Payloads
 
@@ -135,22 +132,22 @@ and return values generated from the execution (`payload.data`).
 
 ```json
 {
-  "authType": "app_user",
-  "authId": "user-123",
-  "data": {
-    "payload": {
-      "variables": {
-        "movieId": "m-1",
-        "rating": 5
-      },
-      "data": {
-        "review_insert": {
-          "id": "r-99"
+    "authType": "app_user",
+    "authId": "user-123",
+    "data": {
+        "payload": {
+            "variables": {
+                "movieId": "m-1",
+                "rating": 5
+            },
+            "data": {
+                "review_insert": {
+                    "id": "r-99"
+                }
+            },
+            "errors": []
         }
-      },
-      "errors": []
     }
-  }
 }
 ```
 
@@ -166,19 +163,19 @@ import { onMutationExecuted } from "firebase-functions/dataconnect";
 import { logger } from "firebase-functions";
 
 export const onNewReview = onMutationExecuted(
-  {
-    service: "myAppService",
-    connector: "reviews",
-    operation: "CreateReview",
-  },
-  (event) => {
-    // Extract input variables passed to the mutation
-    const inputVariables = event.data.payload.variables;
+    {
+        service: "myAppService",
+        connector: "reviews",
+        operation: "CreateReview",
+    },
+    (event) => {
+        // Extract input variables passed to the mutation
+        const inputVariables = event.data.payload.variables;
 
-    // Extract returned fields from the database write
-    const returnedFields = event.data.payload.data;
+        // Extract returned fields from the database write
+        const returnedFields = event.data.payload.data;
 
-    logger.info(`Processed review ${returnedFields.review_insert.id} for movie ${inputVariables.movieId}`);
-  }
+        logger.info(`Processed review ${returnedFields.review_insert.id} for movie ${inputVariables.movieId}`);
+    },
 );
 ```

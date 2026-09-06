@@ -24,7 +24,7 @@ import { getAuth, connectAuthEmulator } from "firebase/auth";
 const auth = getAuth();
 // Connect to emulator if running locally
 if (location.hostname === "localhost") {
-  connectAuthEmulator(auth, "http://localhost:9099");
+    connectAuthEmulator(auth, "http://localhost:9099");
 }
 ```
 
@@ -35,15 +35,15 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
 createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+    .then((userCredential) => {
+        const user = userCredential.user;
+        // ...
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+    });
 ```
 
 ## Sign In with Google (Popup)
@@ -55,20 +55,20 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
 signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // ...
-  })
-  .catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ...
-  });
+    .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+    })
+    .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ...
+    });
 ```
 
 > [!IMPORTANT] **Troubleshooting `auth/unauthorized-domain`**: If the popup
@@ -91,16 +91,16 @@ const auth = getAuth();
 const provider = new FacebookAuthProvider();
 
 signInWithPopup(auth, provider)
-  .then((result) => {
-    // The signed-in user info.
-    const user = result.user;
-    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    const credential = FacebookAuthProvider.credentialFromResult(result);
-    const accessToken = credential.accessToken;
-  })
-  .catch((error) => {
-    // Handle Errors here.
-  });
+    .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+    })
+    .catch((error) => {
+        // Handle Errors here.
+    });
 ```
 
 ## Sign In with Apple (Popup)
@@ -109,18 +109,18 @@ signInWithPopup(auth, provider)
 import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 
 const auth = getAuth();
-const provider = new OAuthProvider('apple.com');
+const provider = new OAuthProvider("apple.com");
 
 signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    // Apple credential
-    const credential = OAuthProvider.credentialFromResult(result);
-    const accessToken = credential.accessToken;
-  })
-  .catch((error) => {
-    // Handle Errors here.
-  });
+    .then((result) => {
+        const user = result.user;
+        // Apple credential
+        const credential = OAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+    })
+    .catch((error) => {
+        // Handle Errors here.
+    });
 ```
 
 ## Sign In with Twitter (Popup)
@@ -132,16 +132,16 @@ const auth = getAuth();
 const provider = new TwitterAuthProvider();
 
 signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    // Twitter credential
-    const credential = TwitterAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    const secret = credential.secret;
-  })
-  .catch((error) => {
-    // Handle Errors here.
-  });
+    .then((result) => {
+        const user = result.user;
+        // Twitter credential
+        const credential = TwitterAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const secret = credential.secret;
+    })
+    .catch((error) => {
+        // Handle Errors here.
+    });
 ```
 
 ## Sign In with GitHub (Popup)
@@ -153,14 +153,14 @@ const auth = getAuth();
 const provider = new GithubAuthProvider();
 
 signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-  })
-  .catch((error) => {
-    // Handle Errors here.
-  });
+    .then((result) => {
+        const user = result.user;
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+    })
+    .catch((error) => {
+        // Handle Errors here.
+    });
 ```
 
 ## Sign In with Microsoft (Popup)
@@ -169,17 +169,17 @@ signInWithPopup(auth, provider)
 import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 
 const auth = getAuth();
-const provider = new OAuthProvider('microsoft.com');
+const provider = new OAuthProvider("microsoft.com");
 
 signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    const credential = OAuthProvider.credentialFromResult(result);
-    const accessToken = credential.accessToken;
-  })
-  .catch((error) => {
-    // Handle Errors here.
-  });
+    .then((result) => {
+        const user = result.user;
+        const credential = OAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+    })
+    .catch((error) => {
+        // Handle Errors here.
+    });
 ```
 
 ## Sign In with Yahoo (Popup)
@@ -188,17 +188,17 @@ signInWithPopup(auth, provider)
 import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 
 const auth = getAuth();
-const provider = new OAuthProvider('yahoo.com');
+const provider = new OAuthProvider("yahoo.com");
 
 signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    const credential = OAuthProvider.credentialFromResult(result);
-    const accessToken = credential.accessToken;
-  })
-  .catch((error) => {
-    // Handle Errors here.
-  });
+    .then((result) => {
+        const user = result.user;
+        const credential = OAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+    })
+    .catch((error) => {
+        // Handle Errors here.
+    });
 ```
 
 ## Sign In Anonymously
@@ -208,13 +208,13 @@ import { getAuth, signInAnonymously } from "firebase/auth";
 
 const auth = getAuth();
 signInAnonymously(auth)
-  .then(() => {
-    // Signed in..
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
+    .then(() => {
+        // Signed in..
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+    });
 ```
 
 ## Email Link Authentication
@@ -226,19 +226,19 @@ import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 
 const auth = getAuth();
 const actionCodeSettings = {
-  // URL you want to redirect back to. The domain must be in the authorized domains list in Firebase Console.
-  url: 'https://www.example.com/finishSignUp?cartId=1234',
-  handleCodeInApp: true,
+    // URL you want to redirect back to. The domain must be in the authorized domains list in Firebase Console.
+    url: "https://www.example.com/finishSignUp?cartId=1234",
+    handleCodeInApp: true,
 };
 
 sendSignInLinkToEmail(auth, email, actionCodeSettings)
-  .then(() => {
-    // Save the email locally so you don't need to ask the user for it again
-    window.localStorage.setItem('emailForSignIn', email);
-  })
-  .catch((error) => {
-    // Error
-  });
+    .then(() => {
+        // Save the email locally so you don't need to ask the user for it again
+        window.localStorage.setItem("emailForSignIn", email);
+    })
+    .catch((error) => {
+        // Error
+    });
 ```
 
 **2. Complete Sign In (on landing page)**
@@ -249,19 +249,19 @@ import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from "firebase/au
 const auth = getAuth();
 
 if (isSignInWithEmailLink(auth, window.location.href)) {
-  let email = window.localStorage.getItem('emailForSignIn');
-  if (!email) {
-    email = window.prompt('Please provide your email for confirmation');
-  }
+    let email = window.localStorage.getItem("emailForSignIn");
+    if (!email) {
+        email = window.prompt("Please provide your email for confirmation");
+    }
 
-  signInWithEmailLink(auth, email, window.location.href)
-    .then((result) => {
-      window.localStorage.removeItem('emailForSignIn');
-      // You can check result.user
-    })
-    .catch((error) => {
-      // Error
-    });
+    signInWithEmailLink(auth, email, window.location.href)
+        .then((result) => {
+            window.localStorage.removeItem("emailForSignIn");
+            // You can check result.user
+        })
+        .catch((error) => {
+            // Error
+        });
 }
 ```
 
@@ -275,15 +275,15 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    const uid = user.uid;
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
+    } else {
+        // User is signed out
+        // ...
+    }
 });
 ```
 
@@ -293,9 +293,11 @@ onAuthStateChanged(auth, (user) => {
 import { getAuth, signOut } from "firebase/auth";
 
 const auth = getAuth();
-signOut(auth).then(() => {
-  // Sign-out successful.
-}).catch((error) => {
-  // An error happened.
-});
+signOut(auth)
+    .then(() => {
+        // Sign-out successful.
+    })
+    .catch((error) => {
+        // An error happened.
+    });
 ```

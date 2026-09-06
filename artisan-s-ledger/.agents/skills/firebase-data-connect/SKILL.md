@@ -2,7 +2,7 @@
 name: firebase-data-connect
 description: Builds and deploys Firebase SQL Connect (aka Firebase Data Connect) backends with PostgreSQL securely. Use when designing schemas with tables and relations, writing authorized queries and mutations, configuring real-time data updates, or generating type-safe SDKs. Use when you need a relational database with Firebase, or when the user mentions SQL Connect or Data Connect.
 metadata:
-  category: Databases
+    category: Databases
 ---
 
 # Firebase SQL Connect
@@ -109,14 +109,14 @@ Configure SDK generation in `connector.yaml`:
 ```yaml
 connectorId: my-connector
 generate:
-  javascriptSdk:
-    outputDir: "../web-app/src/lib/dataconnect"
-    package: "@movie-app/dataconnect"
-  kotlinSdk:
-    outputDir: "../android-app/app/src/main/kotlin/com/example/dataconnect"
-    package: "com.example.dataconnect"
-  swiftSdk:
-    outputDir: "../ios-app/DataConnect"
+    javascriptSdk:
+        outputDir: "../web-app/src/lib/dataconnect"
+        package: "@movie-app/dataconnect"
+    kotlinSdk:
+        outputDir: "../android-app/app/src/main/kotlin/com/example/dataconnect"
+        package: "com.example.dataconnect"
+    swiftSdk:
+        outputDir: "../ios-app/DataConnect"
 ```
 
 Generate SDKs:
@@ -134,7 +134,7 @@ For platform-specific instructions on how to use the generated SDKs, read:
   [reference/sdk_admin_node.md](reference/sdk_admin_node.md)
 - **Flutter (Dart)**: [reference/sdk_flutter.md](reference/sdk_flutter.md)
 
-______________________________________________________________________
+---
 
 ## Feature Capability Map
 
@@ -154,7 +154,7 @@ If you need to implement a specific feature, consult the mapped reference file:
 | **Data Seeding & Migrations**   | [reference/data_seeding.md](reference/data_seeding.md)       | `seed_data.gql`, `_insertMany`, Admin SDK bulk     |
 | **Starter Templates**           | [templates.md](templates.md)                                 | CRUD, user-owned resources, many-to-many, SDK init |
 
-______________________________________________________________________
+---
 
 ## Deployment & CLI
 

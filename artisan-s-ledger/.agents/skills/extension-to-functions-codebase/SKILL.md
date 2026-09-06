@@ -2,7 +2,7 @@
 name: extension-to-functions-codebase
 description: Skill for converting an installed Firebase Extension (or extension source) into a standalone Cloud Functions for Firebase codebase or publishable npm package, including V1 to V2 trigger upgrades, lifecycle hooks, and declarative security
 metadata:
-  category: Serverless
+    category: Serverless
 ---
 
 # Extension to Functions Codebase & npm Package Migration
@@ -19,25 +19,25 @@ Leverages native Cloud Functions features (declarative IAM, Parameterized
 Config, SDK Lifecycle Hooks) and modernizes 1st Gen triggers to 2nd Gen using
 the Destructuring Compatibility Shim.
 
-______________________________________________________________________
+---
 
 ## Target Migration Workflows
 
 - **Target A: Local Functions Codebase** (End-User App Integration)
 
-  - Output: Code under `functions/src/`. Config in `.env`.
-  - Deployment: `firebase deploy --only functions`.
+    - Output: Code under `functions/src/`. Config in `.env`.
+    - Deployment: `firebase deploy --only functions`.
 
 - **Target B: Publishable npm Package / Shareable Package**
 
-  - Output: Reusable npm package exporting V2 functions.
-  - Configuration: `package.json` specifying `exports` map,
-    `engines: { "node": ">=22" }`, and
-    `peerDependencies: { "firebase-functions": ">=6.0.0" }`.
-  - Usage: Consumers install package and re-export functions in `index.ts`
-    (`export * from "<package-name>"`).
+    - Output: Reusable npm package exporting V2 functions.
+    - Configuration: `package.json` specifying `exports` map,
+      `engines: { "node": ">=22" }`, and
+      `peerDependencies: { "firebase-functions": ">=6.0.0" }`.
+    - Usage: Consumers install package and re-export functions in `index.ts`
+      (`export * from "<package-name>"`).
 
-______________________________________________________________________
+---
 
 ## Core Rules & Constraints
 
@@ -53,36 +53,36 @@ instructions:
 
 - **Never call `.value()` at top-level module load scope.**
 - Initialize global SDK instances inside `onInit()` or lazy getters:
-  ```typescript
-  import { defineString } from "firebase-functions/params";
-  import { onInit } from "firebase-functions/v2";
+    ```typescript
+    import { defineString } from "firebase-functions/params";
+    import { onInit } from "firebase-functions/v2";
 
-  const dataset = defineString("DATASET_ID");
-  let client: BigQuery;
+    const dataset = defineString("DATASET_ID");
+    let client: BigQuery;
 
-  onInit(() => {
-    client = new BigQuery({ datasetId: dataset.value() });
-  });
-  ```
+    onInit(() => {
+        client = new BigQuery({ datasetId: dataset.value() });
+    });
+    ```
 
 ### 3. V2 Concurrency & Cost Parity
 
 V2 enables concurrency (up to 80 requests). To preserve V1 single-concurrency
 pricing, set `cpu: "gcf_gen1"`.
 
-______________________________________________________________________
+---
 
 ## Step-by-Step Migration Execution
 
 ### Step 1: Inventory Extension Resources
 
 1. **`extension.yaml`**:
-   - `params` → `defineString`, `defineInt`, `defineBoolean`, `defineSecret`.
-   - `apis` → `requiresAPI(...)`.
-   - `roles` → `requiresRole(...)`.
-   - `lifecycleEvents` → `afterFirstDeploy` & `afterRedeploy`.
-   - `resources` → Upgrade 1st Gen triggers to 2nd Gen (`onDocumentWritten`,
-     `onTaskDispatched`, `onRequest`).
+    - `params` → `defineString`, `defineInt`, `defineBoolean`, `defineSecret`.
+    - `apis` → `requiresAPI(...)`.
+    - `roles` → `requiresRole(...)`.
+    - `lifecycleEvents` → `afterFirstDeploy` & `afterRedeploy`.
+    - `resources` → Upgrade 1st Gen triggers to 2nd Gen (`onDocumentWritten`,
+      `onTaskDispatched`, `onRequest`).
 1. **Files & Scripts**: Preserve devDependencies, test framework (`jest`), and
    test scripts.
 
@@ -90,12 +90,12 @@ ______________________________________________________________________
 
 - Set `name: "<package-name>"`, `engines: { "node": ">=22" }`.
 - Set `peerDependencies`:
-  ```json
-  "peerDependencies": {
-    "firebase-admin": "^11.0.0 || ^12.0.0",
-    "firebase-functions": ">=6.0.0"
-  }
-  ```
+    ```json
+    "peerDependencies": {
+      "firebase-admin": "^11.0.0 || ^12.0.0",
+      "firebase-functions": ">=6.0.0"
+    }
+    ```
 - Configure `exports` map targeting ESM/CommonJS and TypeScript declarations
   (`lib/index.js`, `lib/index.d.ts`).
 
